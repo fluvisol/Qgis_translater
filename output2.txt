@@ -1,0 +1,20 @@
+
+#: ../../installation_mac.rst:29
+msgid "Run QGIS 2;"
+msgstr ""
+
+#: ../../installation_mac.rst:31
+msgid ""
+"From the main menu, select ``Plugins`` > ``Manage and Install Plugins``;"
+msgstr ""
+
+#: ../../installation_mac.rst:35
+msgid ""
+"From the menu ``All``, select the Semi-Automatic Classification Plugin and "
+"click the button ``Install plugin``;"
+msgstr ""
+
+#: ../../installation_mac.rst:39
+msgid ""
+"The SCP should be automatically activated; however, be sure that the Semi-"
+"Automatic Classification Plugin is checked in the menu ``Installed`` (the "

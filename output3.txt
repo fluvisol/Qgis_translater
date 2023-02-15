@@ -1,0 +1,20 @@
+"restart of QGIS could be necessary to complete the SCP installation);"
+msgstr ""
+
+#: ../../installation_mac.rst:46
+msgid "Configuration of the plugin"
+msgstr ""
+
+#: ../../installation_mac.rst:48
+msgid ""
+"Now, the Semi-Automatic Classification Plugin is installed and two docks and"
+" a toolbar should be added to QGIS. Also, a SCP menu is available in the "
+"Menu Bar of QGIS. It is possible to move the :ref:`toolbar` and the docks "
+"according to your needs, as in the following image."
+msgstr ""
+
+#: ../../installation_mac.rst:54
+msgid ""
+"The configuration of available RAM is recommended in order to reduce the "
+"processing time. From the :ref:`SCP_menu` select |settings| ``Settings > "
+"Processing`` ."
