@@ -134,29 +134,51 @@ def my_traslate(text):
     # return ts.translate_text(text, from_language, to_language)
     # return tss.yandex(text)
 
+global message_id
 
-with open("SemiAutomaticClassificationManual_v4\locale\\ru\LC_MESSAGES\FAQ.po", "r+", encoding="utf-8") as f:
-    old = f.read() # read everything in the file
-    new_msgid = ''
-    new_msgs = []
-    lines = old.split('\n')
-    newLines = []
-    for line in lines:
-        words = line.split(' ')
-        if words[0] == 'msgid' and ' '.join(words[1:]) != '""':
-            new_msgid = ' '.join(words[1:])
-            new_msgs = []
-        elif words[0] == 'msgstr' and new_msgid != '':
-            line = f'msgstr {my_traslate(new_msgid)}'
-            if len(new_msgs) > 0:
-                for msg in new_msgs:
-                    line += f'\n{my_traslate(msg)}'
-            new_msgid = ''
-            new_msgs = []
-        elif words[0] != '' and words[0][0] == '"':
-            new_msgs.append(line)
-        newLines.append(line)
+def rewrite_file(file_name):
+    with open(file_name, "r+", encoding="utf-8") as text:
+        text_blocks = text.read().split('\n#:')
+        for text_block in text_blocks:
+            message_id = None
+            messages_subs = []
+            for line in text_block.split('\n')[1:]:
+                if len(line) == 0: continue
+                pe = line.split(maxsplit=1)
+                if len(pe) >= 2:
+                    [head, tail] = pe
+                    if message_id == None and head == 'msgid' and tail != '""':
+                        message_id = tail
+                    elif head == 'msgstr' and tail == '""':
+                        line = f'msgstr { my_traslate(message_id) }'
+                        if len(messages_subs) > 0:
+                            for messages_sub in messages_subs:
+                                line += f'\n{ my_traslate(messages_sub) }'
+                        message_id = None
+                        messages_subs = []
+                if line[0] == '"':
+                    messages_subs.append(line)
+                    
+                
+        # for line in lines:
+        #     words = line.split(' ')
+        #     if words[0] == 'msgid' and ' '.join(words[1:]) != '""':
+        #         new_msgid = ' '.join(words[1:])
+        #         new_msgs = []
+        #     elif words[0] == 'msgstr' and new_msgid != '':
+        #         line = f'msgstr {my_traslate(new_msgid)}'
+        #         if len(new_msgs) > 0:
+        #             for msg in new_msgs:
+        #                 line += f'\n{my_traslate(msg)}'
+        #         new_msgid = ''
+        #         new_msgs = []
+        #     elif words[0] != '' and words[0][0] == '"':
+        #         new_msgs.append(line)
+        #     newLines.append(line)
 
-    f.seek(0) # rewind
-    f.write('\n'.join(newLines)) # write the new line before
-    # f.close()
+        text.seek(0) # rewind
+        text.write('\n#:'.join(text_blocks))
+        text.close()
+
+test_file = "SemiAutomaticClassificationManual_v4\locale\\ru\LC_MESSAGES\FAQ.po"
+rewrite_file(test_file)
