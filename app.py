@@ -140,10 +140,12 @@ global message_id
 def rewrite_file(file_name):
     with open(file_name, "r+", encoding="utf-8") as text:
         text_blocks = text.read().split('\n#:')
+        text_blocks_new = []
         for text_block in text_blocks:
             message_id = None
             messages_subs = []
-            for line in text_block.split('\n')[1:]:
+            lines = []
+            for line in text_block.split('\n'):
                 if len(line) == 0: continue
                 pe = line.split(maxsplit=1)
                 if len(pe) >= 2:
@@ -161,26 +163,11 @@ def rewrite_file(file_name):
                         print(f'>>> new line {line}')
                 if line[0] == '"':
                     messages_subs.append(line)
-                    
                 
-        # for line in lines:
-        #     words = line.split(' ')
-        #     if words[0] == 'msgid' and ' '.join(words[1:]) != '""':
-        #         new_msgid = ' '.join(words[1:])
-        #         new_msgs = []
-        #     elif words[0] == 'msgstr' and new_msgid != '':
-        #         line = f'msgstr {my_traslate(new_msgid)}'
-        #         if len(new_msgs) > 0:
-        #             for msg in new_msgs:
-        #                 line += f'\n{my_traslate(msg)}'
-        #         new_msgid = ''
-        #         new_msgs = []
-        #     elif words[0] != '' and words[0][0] == '"':
-        #         new_msgs.append(line)
-        #     newLines.append(line)
-
+                lines.append(line)
+            text_blocks_new.append('\n'.join(lines))
         text.seek(0) # rewind
-        text.write('\n#:'.join(text_blocks))
+        text.write('\n\n#:'.join(text_blocks_new))
         text.close()
 
 test_file = "SemiAutomaticClassificationManual_v4\locale\\ru\LC_MESSAGES\FAQ.po"
