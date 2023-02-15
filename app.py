@@ -141,15 +141,29 @@ with open("SemiAutomaticClassificationManual_v4\locale\\ru\LC_MESSAGES\installat
     lines = old.split('\n')
     newLines = []
     for line in lines:
-        words = line.split(' ')
+        words = line.split(' ', maxsplit=1)
         if words[0] == 'msgid' and ' '.join(words[1:]) != '""':
             new_msgid = ' '.join(words[1:])
             print(new_msgid)
         elif words[0] == 'msgstr' and new_msgid != '':
             line = f'msgstr {my_traslate(new_msgid)}'
             print(line)
+        nonline = line.split('"', maxsplit=1)
+        if nonline != '':
+            new_msgid = '"'.join(line[1:])
+            line = f'msgstr {my_traslate(new_msgid)}'
+            print(line)
+        # elif line[0] == '"':
+        #     new_msgid = '"'.join(line[1:])
+        #     line = f'msgstr {my_traslate(new_msgid)}'
+
+
+
         newLines.append(line)
 
     f.seek(0) # rewind
     f.write('\n'.join(newLines)) # write the new line before
     # f.close()
+
+
+# https://github.com/fluvisol/SemiAutomaticClassificationManual_v4
