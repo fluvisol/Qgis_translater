@@ -1,8 +1,0 @@
-msgstr ""
-
-#: ../../installation_mac.rst:59
-msgid ""
-"In the :ref:`settings_tab`, set the ``Available RAM (MB)`` to a value that "
-"should be half of the system RAM. For instance, if your system has 2GB of "
-"RAM, set the value to 1024MB."
-msgstr ""
