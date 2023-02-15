@@ -136,6 +136,20 @@ def my_traslate(text):
 
 
 with open("SemiAutomaticClassificationManual_v4\locale\\ru\LC_MESSAGES\installation_mac.po", "r+", encoding="utf-8") as f:
+
+old = f.read ()
+lines = old.split('\n') 
+newLines = []
+for line in lines:
+    line = f' {my_traslate(line)}'
+    if TypeError:
+        pass
+
+
+
+   
+   
+   
     old = f.read() # read everything in the file
     new_msgid = ''
     lines = old.split('\n')
