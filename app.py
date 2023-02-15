@@ -130,7 +130,8 @@ import io
 
 def my_traslate(text):
     from_language, to_language = 'en', 'ru'
-    return tss.google(text, from_language, to_language)
+    return text
+    # return tss.google(text, from_language, to_language)
     # return ts.translate_text(text, from_language, to_language)
     # return tss.yandex(text)
 
@@ -150,12 +151,14 @@ def rewrite_file(file_name):
                     if message_id == None and head == 'msgid' and tail != '""':
                         message_id = tail
                     elif head == 'msgstr' and tail == '""':
-                        line = f'msgstr { my_traslate(message_id) }'
+                        if message_id != None:
+                            line = f'msgstr { my_traslate(message_id) }'
                         if len(messages_subs) > 0:
                             for messages_sub in messages_subs:
                                 line += f'\n{ my_traslate(messages_sub) }'
                         message_id = None
                         messages_subs = []
+                        print(f'>>> new line {line}')
                 if line[0] == '"':
                     messages_subs.append(line)
                     
