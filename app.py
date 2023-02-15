@@ -163,12 +163,14 @@ def rewrite_file(file_name):
                         print(f'>>> new line {line}')
                 if line[0] == '"':
                     messages_subs.append(line)
-                
                 lines.append(line)
             text_blocks_new.append('\n'.join(lines))
         text.seek(0) # rewind
         text.write('\n\n#:'.join(text_blocks_new))
         text.close()
 
-test_file = "SemiAutomaticClassificationManual_v4\locale\\ru\LC_MESSAGES\FAQ.po"
-rewrite_file(test_file)
+# test_file = "SemiAutomaticClassificationManual_v4\locale\\ru\LC_MESSAGES\FAQ.po"
+# rewrite_file(test_file)
+
+for file_path in glob.glob(".\SemiAutomaticClassificationManual_v4\locale\\ru\LC_MESSAGES\*"):
+    rewrite_file(file_path)
